@@ -74,7 +74,7 @@ isPrefixOf1 ::  Eq a => [a]-> [a] -> Bool
 isPrefixOf1 _ [] = False
 isPrefixOf1 [] _ = True
 isPrefixOf1 [] [] = True
-isPrefixOf1 (h:t) (h1:t1) = if (h:t) == head (inits1 (h1:t1)) then True else isPrefixOf1 (h:t) t1
+isPrefixOf1 (h:t) (h1:t1) = if (h:t) == head (inits1 (h1:t1)) then True else isPrefixOf1 (h:t) t1 --a 
 
 
 
