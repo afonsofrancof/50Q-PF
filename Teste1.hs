@@ -65,16 +65,33 @@ concat1 (h:t)
 
 inits1 :: [a] -> [[a]]
 inits1 [] = [[]]
-inits1 (x:xs) = []: map (x:) (inits1 xs)-------------------------------------------------------------------------DUVIDA
+inits1 (x:xs) = []: map (x:) (inits1 xs)
 
 tails1 ::  [a] -> [[a]]
 tails1 (h:t) = reverse (inits1  (h:t))
 
-isPrefixOf1 ::  Eq a => [a]-> [a] -> Bool  
-isPrefixOf1 _ [] = False
+isPrefixOf1 :: Eq a => [a] -> [a] -> Bool
 isPrefixOf1 [] _ = True
-isPrefixOf1 [] [] = True
-isPrefixOf1 (h:t) (h1:t1) = if (h:t) == head (inits1 (h1:t1)) then True else isPrefixOf1 (h:t) t1 --ab
+isPrefixOf1 _ [] = False
+isPrefixOf1 (x:xs) (y:ys) = if x == y && isPrefixOf1 xs ys then True else False
+
+isSufixOf1 :: Eq a => [a] -> [a] -> Bool
+isSufixOf1 [] _ = True
+isSufixOf1 _ [] = False
+isSufixOf1 (x:xs) (y:ys) = isPrefixOf1 (reverse (x:xs)) (reverse (y:ys))
+
+
+isSubsequenceOf1 :: Eq a => [a] -> [a] -> Bool
+isSubsequenceOf1 [] _ = True
+isSubsequenceOf1 _ [] = False
+isSubsequenceOf1 (h:t) (h1:t1) = isSubsequenceOf1 (if h == h1 then t else h:t) t1
+
+elemIndices1 ::  Eq a => a ->[a] -> [Int]
+elemIndices1 a [] = []
+elemIndices1 a (h:t) = if a == h then 1:1+inicio:resto else inicio:resto where inicio:resto = (elemIndices1 a t)
+
+
+
 
 
 
