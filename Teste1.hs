@@ -1,5 +1,5 @@
 module Teste1 where
-
+import Data.Char
 data Semaforo = Verde | Amarelo | Vermelho deriving (Show)
 
 
@@ -113,12 +113,82 @@ intersect1 (h:t) l = if h `elem` l then h : (intersect1 t l) else intersect1 t l
 intersect1 [] l = []
 
 insert1 ::  Ord a => a -> [a]-> [a]
-insert1 a l = undefined 
+insert1 a (h:t) | a < h = a:h:t 
+				| otherwise = h:insert1 a t
+insert1 a [] = [a]
+
+unwords1 ::  [String] -> String
+unwords1 [] = ""
+unwords1 (h:t) = h++(if t == [] then "" else " ")++(unwords1 t)
+
+unlines1 ::  [String] -> String
+unlines1 [] = ""
+unlines1 (h:t) = h++(if t == [] then "" else "\n")++(unlines1 t)
+
+pMaior1 ::  Ord a => [a] -> Int
+pMaior1 (h:[]) = 0
+pMaior1 (h:t) = if h > (t!!pMaior1 t) then 0 else 1+pMaior1 (t)
+
+temRepetidos1 ::  Eq a => [a] -> Bool
+temRepetidos1 [] = False
+temRepetidos1 (h:t) = h `elem` t || temRepetidos1 t 
+
+algarismos1 ::  [Char] -> [Char]
+algarismos1 (h:t) | h `elem` ['1'..'9'] = h:algarismos1 t
+				  | otherwise = algarismos1 t 
+algarismos1 [] = []
+
+posImpares1 ::  [a] -> [a]
+posImpares1 (h:h1:t) = h1:posImpares1 t
+posImpares1 [] = []
+
+posPares1 ::  [a] -> [a]
+posPares1 [] = []
+posPares1 (h:h1:t) = h:posPares1 t
+
+isSorted1 ::  Ord a => [a] -> Bool
+isSorted1 (h:h1:t) = h <= h1 && isSorted1 (h1:t) 
+isSorted1 (h:[]) = True
+isSorted1 [] = True
+
+iSort1 ::  Ord a => [a] -> [a]
+iSort1 [] = []
+iSort1 (h:t) = insert1 h (iSort1 t) 
+
+menor1 ::  String -> String -> Bool
+menor1 (h:t) (h1:t1) = h < h1 || menor1 t t1 
+menor1 _ "" = False
+menor1 "" _ = True
+
+elemMSet1 ::  Eq a => a -> [(a,Int)] -> Bool
+elemMSet1 a ((b,c):t) = b == a || elemMSet1 a t
+elemMSet1 a [] = False
+
+lengthMSet1 ::  [(a,Int)] -> Int
+lengthMSet1 ((a,b):t) = b+lengthMSet1 t
+lengthMSet1 [] = 0
+
+converteMSet1 ::  [(a,Int)] -> [a]
+converteMSet1 [] = []
+converteMSet1 ((a,b):t) = replicate1 b a++converteMSet1 t
+
+insertMSet1 ::  Eq a => a -> [(a,Int)] -> [(a,Int)]					   
+insertMSet1 a [] = [(a,1)]
+insertMSet1 a ((b,c):t) = if a == b then ((b,c+1):t) else (b,c):insertMSet1 a t
+
+removeMSet1 ::  Eq a => a -> [(a,Int)] -> [(a,Int)]
+removeMSet1 a [] = []
+removeMSet1 a ((b,c):t) = if a == b then (if c == 1 then t else (b,c-1):t) else (b,c):removeMSet1 a t
+
+constroiMSet1 ::  Ord a => [a] -> [(a,Int)]
+constroiMSet1 [] = []
+constroiMSet1 (h:t) = insertMSet1 h (constroiMSet1 t)
 
 
 
 
 
+ 
 
 
 
