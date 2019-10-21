@@ -285,7 +285,7 @@ mesmaOrdenada1 ((Pos x y ):t) = True
 data Semaforo = Verde | Amarelo | Vermelho deriving (Show)
 
 interseccaoOK ::  [Semaforo] -> Bool
-interseccaoOK a = undefined         ---------------------------------- Falta este também (50) 
+interseccaoOK a = undefined         --------------------------------- Falta este também (50) 
 
 	
 
