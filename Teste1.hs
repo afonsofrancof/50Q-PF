@@ -80,7 +80,8 @@ inits1 (x:xs) = []: map (x:) (inits1 xs)
 
 
 tails1 ::  [a] -> [[a]]
-tails1 (h:t) = reverse (inits1  (h:t))
+tails1 [] = [[]]
+tails1 (h:t) = (h:t):tails1 t
 
 
 isPrefixOf1 :: Eq a => [a] -> [a] -> Bool
