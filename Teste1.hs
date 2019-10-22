@@ -188,9 +188,12 @@ iSort1 (h:t) = insert1 h (iSort1 t)
 
 
 menor1 ::  String -> String -> Bool
-menor1 (h:t) (h1:t1) = h < h1 || menor1 t t1 
 menor1 _ "" = False
 menor1 "" _ = True
+menor (h:t) (x:y) | h < x = True
+                  | h == x && menor t y = True
+                  | otherwise = False 
+
 
 
 elemMSet1 ::  Eq a => a -> [(a,Int)] -> Bool
@@ -282,10 +285,10 @@ mesmaOrdenada1 [] = True
 mesmaOrdenada1 ((Pos x y):(Pos x1 y1):t) = if y == y1 then mesmaOrdenada1 ((Pos x1 y1):t) else False
 mesmaOrdenada1 ((Pos x y ):t) = True 
 
-data Semaforo = Verde | Amarelo | Vermelho deriving (Show)
+data Semaforo = Verde | Amarelo | Vermelho deriving (Show,Eq)
 
 interseccaoOK ::  [Semaforo] -> Bool
-interseccaoOK a = undefined         --------------------------------- Falta este também (50) 
+interseccaoOK a = if (length(filter (==Verde) a) > 1) then False else True       --------------------------------- Falta este também (50) 
 
 	
 
