@@ -1,3 +1,4 @@
+import Data.Ord (comparing)
 
 
 
@@ -94,3 +95,39 @@ nnub (h:t) = if h `elem` t then nnub t else h: nnub t
 --21
 ddelete e (h:t) = if h == e then t else h : ddelete e t
 
+--22
+backback :: (Eq a) => [a] -> [a] -> [a]
+backback = foldr ddelete
+
+--23
+uunion :: Eq a => [a] -> [a] -> [a]
+uunion l [] = l
+uunion [] l = []
+uunion (h:t) (h1:t1) = if h1 `elem` t then uunion (h:t) t1 else uunion (h:t) t1 ++ [h1]
+
+--24
+iintersect :: Eq a => [a] -> [a] -> [a]
+iintersect l1 l2 = foldr removeEntry [] l1
+    where
+        removeEntry x l | x `elem` l2 = x:l
+                        | otherwise  = l
+
+--25
+iinsert :: Ord a => a -> [a] -> [a]
+iinsert elem [] = [elem]
+iinsert elem (h:t)
+    | elem <= h = elem:(h:t)
+    | otherwise = h : iinsert elem t
+
+--26
+uunwords [] = [] 
+uunwords l@(h:t) = h ++ " " ++ uunwords t
+
+--27
+uunlines [] = []
+uunlines l@(h:t) = h ++ "\n" ++ uunlines t
+
+--28
+pMaior :: Ord a => [a] -> Int
+pMaior [a] = 0
+pMaior (h:t) = if h > (t!!pMaior t) then 0 else 1 + pMaior t
